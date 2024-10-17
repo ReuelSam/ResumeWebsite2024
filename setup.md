@@ -1,8 +1,7 @@
 # This file is to keep track of the setup steps that is needed to get started with a REACT NODE project
 
-## Installation
+## 1. Installing Node JS
 
-### 1. Node js
 Installation Link: https://nodejs.org/en/ (stable version recommended. As of writing, version installed on MacOS: node-v20.18.0)
 
 Once installed, verify installation by opening terminal and running:
@@ -16,7 +15,7 @@ v20.18.0
 (base) reuelsam@Reuels-MacBook-Pro ResumeWebsite2024 % 
 ```
 
-### 2. React JS (Using Vite - modern replacement for Create-React-App)
+## 2. Installing React JS (Using Vite - modern replacement for Create-React-App)
 
 In the terminal, run the following: 
 ```
@@ -70,7 +69,7 @@ found 0 vulnerabilities
 (base) reuelsam@Reuels-MacBook-Pro react-frontend % 
 ```
 
-### Running project to verify if things work:
+## 3. Running project to verify if things work:
 
 To run your project and see the result on a webpage:
 ```
@@ -89,3 +88,9 @@ To run your project and see the result on a webpage:
 
 The page should be up and running on: http://localhost:5173/
 
+## Additional installations:
+
+### 1. react-router-dom
+```
+npm install react-router-dom@6
+```
