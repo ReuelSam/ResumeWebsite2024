@@ -1,5 +1,7 @@
 # This file is to keep track of the setup steps that is needed to get started with a REACT NODE project
 
+## *PLEASE NOTE*: **THESE ARE INSTRUCTIONS FOR AN EMPTY DIRECTORY WITH NO FILES**
+
 ## 1. Installing Node JS
 
 Installation Link: https://nodejs.org/en/ (stable version recommended. As of writing, version installed on MacOS: node-v20.18.0)
