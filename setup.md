@@ -96,3 +96,13 @@ The page should be up and running on: http://localhost:5173/
 ```
 npm install react-router-dom@6
 ```
+
+### 2. react-bootstrap
+```
+npm install react-bootstrap bootstrap
+```
+
+### 3. react-icons
+```
+npm install react-icons
+```

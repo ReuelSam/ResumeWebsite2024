@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -39,4 +39,20 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Apply padding to make space for the fixed header */
+.content-wrapper {
+  padding-top: 100px; /* Adjust based on your header's height */
+}
+
+/* Ensure header has a consistent height */
+header {
+  height: 100px;
+  line-height: 100px; /* Vertically center header content if needed */
+  background-color: #1e1e1e; /* Your existing header background color */
+  position: fixed; /* Ensure the header stays fixed at the top */
+  width: 100%; /* Ensure it spans the full width */
+  top: 0;
+  z-index: 1000; /* Ensure it stays above other content */
 }
