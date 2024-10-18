@@ -16,10 +16,10 @@ const Header = () => {
             expanded={menuOpen}
             onToggle={setMenuOpen}
             collapseOnSelect
-            style={{ width: "100%" }} // Ensure Navbar takes full width
+            style={{ width: "100%"}} // Ensure Navbar takes full width
         >
             <Container fluid>
-                <Navbar.Brand href="#home">
+                <div className="navbar-brand">
                     <Row className="align-items-center" style={{ gap: '10px' }}> {/* Add gap for spacing */}
                         <Col xs="auto">
                             {/* Placeholder image */}
@@ -40,9 +40,10 @@ const Header = () => {
                             </div>
                         </Col>
                     </Row>
-                </Navbar.Brand>
+                </div>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" /> {/* Hamburger menu */}
-                <Navbar.Collapse id="basic-navbar-nav">
+                {/* Add the bg-dark class dynamically based on the menuOpen state */}
+                <Navbar.Collapse id="basic-navbar-nav" className={menuOpen ? 'bg-dark' : ''}>
                     <Nav className="ms-auto">
                         {/* Special case for "Home" */}
                         <NavLink

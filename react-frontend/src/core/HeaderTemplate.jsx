@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
-const Header = () => {
+const Header1 = () => {
     const [hoverIndex, setHoverIndex] = useState(null);
     const [menuOpen, setMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1300);
@@ -107,4 +107,4 @@ const styles = {
     }
 };
 
-export default Header;
+export default Header1;
