@@ -28,7 +28,7 @@ const Footer = ({ isDarkMode, toggleTheme }) => {
                 </Text>
 
                 <Text size="small" color={isDarkMode ? 'light-1' : 'dark-1'}>
-                    +1 000 000 0000
+                    +1 (000)-000-0000
                 </Text>
             </Box>
 
