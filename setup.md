@@ -97,7 +97,7 @@ The page should be up and running on: http://localhost:5173/
 npm install react-router-dom@6
 ```
 
-### 2. react-bootstrap
+### 2. react-bootstrap (OBSELETE, I am no longer using this)
 ```
 npm install react-bootstrap bootstrap
 ```
@@ -105,4 +105,9 @@ npm install react-bootstrap bootstrap
 ### 3. react-icons
 ```
 npm install react-icons
+```
+
+### 4. Install grommet
+```
+npm install grommet grommet-icons styled-components
 ```
