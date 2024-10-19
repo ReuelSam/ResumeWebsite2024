@@ -1,134 +1,149 @@
-import { useState } from 'react';
-import { Navbar, Nav, Container, Row, Col, Image } from 'react-bootstrap';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Header, Box, Text, Image, Anchor, Button, Menu, ResponsiveContext } from 'grommet';
+import { Github, Linkedin } from 'grommet-icons';
+import { useLocation } from 'react-router-dom';
 
-const Header = () => {
-    const [hoverIndex, setHoverIndex] = useState(null);
-    const [menuOpen, setMenuOpen] = useState(false);
+const MyResumeHeader = ({ isDarkMode }) => {
+    const size = useContext(ResponsiveContext);
+    const location = useLocation();
+    const [activeButton, setActiveButton] = useState('Home');
+    const [screenSize, setScreenSize] = useState(size);
+
+    const [githubHovered, setGithubHovered] = useState(false);
+    const [linkedinHovered, setLinkedinHovered] = useState(false);
+
+    const customBreakpoint = size === 'medium' || size === 'small'; // Trigger menu at medium size
+
+    useEffect(() => {
+        const pathToLabel = {
+            '/': 'Home',
+            '/about': 'About',
+            '/education': 'Education',
+            '/projects': 'Projects',
+            '/publications': 'Publications',
+            '/skills': 'Skills',
+            '/miscellaneous': 'Miscellaneous',
+        };
+        setActiveButton(pathToLabel[location.pathname] || 'Home');
+    }, [location]);
+
+    useEffect(() => {
+        setScreenSize(size);
+    }, [size]);
+
+    const buttonStyles = (label) => ({
+        border: activeButton === label ? '2px solid #FFA500' : 'none',
+        borderRadius: '12px',
+        padding: '8px 16px',
+        color: activeButton === label ? '#FFA500' : isDarkMode ? 'white' : 'black',
+        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'border 0.2s ease',
+    });
+
+    const resumeButtonStyles = {
+        backgroundColor: 'transparent',
+        borderRadius: '12px',
+        border: isDarkMode ? '1px solid white' : '1px solid black',
+        color: isDarkMode ? 'white' : 'black',
+        padding: '10px 20px',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    };
 
     return (
-        <Navbar
-            expand="xl"
-            fixed="top"
-            bg="dark"
-            variant="dark"
-            expanded={menuOpen}
-            onToggle={setMenuOpen}
-            collapseOnSelect
-            style={{ width: "100%"}} // Ensure Navbar takes full width
+        <Header
+            background={isDarkMode ? 'dark-1' : 'light-1'}
+            pad="medium"
+            fill="horizontal"
+            justify="between"
+            style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000 }}
         >
-            <Container fluid>
-                <div className="navbar-brand">
-                    <Row className="align-items-center" style={{ gap: '10px' }}> {/* Add gap for spacing */}
-                        <Col xs="auto">
-                            {/* Placeholder image */}
-                            <Image src="https://via.placeholder.com/50" roundedCircle />
-                        </Col>
-                        <Col>
-                            <div style={styles.brandText}>
-                                <h4 style={styles.name}>FirstName LastName</h4>
-                                <p style={styles.title}>Job Title 1 | Job Title 2</p>
-                                <div style={styles.iconContainer}>
-                                    <a href="https://github.com/" target="_blank" rel="noopener noreferrer" style={styles.icon}>
-                                        <FaGithub size={20} />
-                                    </a>
-                                    <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" style={styles.icon}>
-                                        <FaLinkedin size={20} />
-                                    </a>
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                </div>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" /> {/* Hamburger menu */}
-                {/* Add the bg-dark class dynamically based on the menuOpen state */}
-                <Navbar.Collapse id="basic-navbar-nav" className={menuOpen ? 'bg-dark' : ''}>
-                    <Nav className="ms-auto">
-                        {/* Special case for "Home" */}
-                        <NavLink
-                            to="/"
-                            end // Ensures this only matches the exact root URL
-                            className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-                            style={({ isActive }) =>
-                                isActive ? { ...styles.navItem, ...styles.activeNavItem } : styles.navItem
-                            }
-                            onMouseEnter={() => setHoverIndex(0)}
-                            onMouseLeave={() => setHoverIndex(null)}
-                            onClick={() => setMenuOpen(false)} // Close menu after clicking on mobile
-                        >
-                            Home
-                        </NavLink>
+            <Box direction="row" align="center" gap="medium">
+                <Image
+                    src="https://via.placeholder.com/50"
+                    alt="Profile"
+                    style={{ borderRadius: '50%' }}
+                />
+                <Box direction="column" align="start">
 
-                        {/* Remaining nav items */}
-                        {['About', 'Education', 'Projects', 'Publications', 'Skills', 'Miscellaneous'].map((item, index) => (
-                            <NavLink
-                                key={index + 1} // Start index at 1 to avoid conflict with "Home"
-                                to={`/${item.toLowerCase()}`} // Ensure leading slash for paths
-                                className={({ isActive }) =>
-                                    isActive ? 'nav-link active' : 'nav-link'
-                                }
-                                end // Ensures exact matching for root paths like "/about"
-                                style={({ isActive }) =>
-                                    isActive ? { ...styles.navItem, ...styles.activeNavItem } : styles.navItem
-                                }
-                                onMouseEnter={() => setHoverIndex(index + 1)}
-                                onMouseLeave={() => setHoverIndex(null)}
-                                onClick={() => setMenuOpen(false)} // Close menu after clicking on mobile
-                            >
-                                {item}
-                            </NavLink>
-                        ))}
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+                    <Text size="large" weight="bold" color="#FFA500">
+                        FirstName LastName
+                    </Text>
+
+                    <Text size="medium" color={isDarkMode ? 'light-4' : 'dark-4'}>
+                        Job Title | Job Title 2
+                    </Text>
+
+                    <Box direction="row" gap="medium" align="center" pad={{ top: 'small' }}>
+                        <Anchor
+                            href="https://github.com"
+                            onMouseEnter={() => setGithubHovered(true)}
+                            onMouseLeave={() => setGithubHovered(false)}
+                            plain={true}
+                        >
+                            <Github color={githubHovered ? '#00C781' : isDarkMode ? 'white' : 'black'} />
+                        </Anchor>
+                        
+                        <Anchor
+                            href="https://linkedin.com"
+                            onMouseEnter={() => setLinkedinHovered(true)}
+                            onMouseLeave={() => setLinkedinHovered(false)}
+                            plain={true}
+                        >
+                            <Linkedin color={linkedinHovered ? '#00C781' : isDarkMode ? 'white' : 'black'} />
+                        </Anchor>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Box align="end" direction="row" gap="medium">
+                {customBreakpoint ? (
+                <>
+                    <Button label="Resume" href="/resume" style={resumeButtonStyles} />
+                    <Menu
+                    label={activeButton} // Show the current active page label
+                    items={[
+                        { label: 'Home', href: '/' },
+                        { label: 'About', href: '/about' },
+                        { label: 'Education', href: '/education' },
+                        { label: 'Projects', href: '/projects' },
+                        { label: 'Publications', href: '/publications' },
+                        { label: 'Skills', href: '/skills' },
+                        { label: 'Miscellaneous', href: '/miscellaneous' },
+                    ]}
+                    />
+                </>
+                ) : (
+                <Box direction="row" gap="medium">
+                    {[
+                    { label: 'Home', href: '/' },
+                    { label: 'About', href: '/about' },
+                    { label: 'Education', href: '/education' },
+                    { label: 'Projects', href: '/projects' },
+                    { label: 'Publications', href: '/publications' },
+                    { label: 'Skills', href: '/skills' },
+                    { label: 'Miscellaneous', href: '/miscellaneous' },
+                    ].map(({ label, href }) => (
+                    <Button
+                        key={label}
+                        label={label}
+                        plain
+                        href={href}
+                        style={buttonStyles(label)}
+                    />
+                    ))}
+                    <Button label="Resume" href="/resume" style={resumeButtonStyles} />
+                </Box>
+                )}
+            </Box>
+        </Header>
     );
 };
 
-const styles = {
-    brandText: {
-        color: '#f9a825',
-        textAlign: 'left',
-    },
-    name: {
-        fontSize: '1.2rem',
-        fontWeight: 'bold',
-        marginBottom: '0',
-    },
-    title: {
-        fontSize: '0.9rem',
-        fontStyle: 'italic',
-        marginTop: '0',
-        color: '#fff',
-    },
-    iconContainer: {
-        display: 'flex',
-        gap: '15px', // Increase space between icons
-        marginTop: '5px',
-    },
-    icon: {
-        color: '#fff', // Keep the icons white
-        textDecoration: 'none',
-        transition: 'color 0.3s ease',
-    },
-    navItem: {
-        color: '#fff',
-        textDecoration: 'none',
-        fontWeight: '500',
-        padding: '10px 20px',
-        borderRadius: '50px',
-        transition: 'all 0.3s ease',
-        border: '2px solid transparent',  // Default border is transparent
-    },
-    navItemHover: {
-        border: '2px solid #f9a825',  // Only the border changes on hover
-        color: '#fff',  // Keep text color the same on hover
-    },
-    activeNavItem: {
-        border: '2px solid #f9a825', // Apply active style (highlighted border)
-        color: '#f9a825',  // Active link text color
-    }
-};
-
-export default Header;
+export default MyResumeHeader;
